@@ -25,6 +25,7 @@ Game.draw = function(){
   }
 };
 
+// TODO: Understand why this works better. I get that the algo is trying to keep the framerate smooth by adjusting for missed ticks.. but I cant fully wrap my head around whats happening.
 Game.run = function(){
   var loops = 0, skipTicks = 1000 / Game.fps, maxFrameSkip = 10, nextGameTick = (new Date()).getTime();
 
@@ -55,35 +56,43 @@ Mob.draw = function(canvasContext){
   canvasContext.fillRect(this.pos.x, this.pos.y, this.width, this.height);
   //console.log(this.pos.x + this.width, this.pos.y + this.height);
 }
+
 // Push that text mob object onto our stack of mobs.
 Game.mobs.push(Mob);
 
-// asci keycodes
-// a = 
+
+/*********************************************************
+ *
+ *                KEYBOARD EVENT HANDLERS
+ *
+ * The following two functions handle onkeydown and onkeyup events
+ * we grab the keycode and respond to it if needed.
+ * keycodes are unicode 
+ ********************************************************/
 // For smoother input it makes sense to capture keydown and keyup events
 // and set movement accordingly.
 function onKeyDownEvent(event){
   var chCode = ('which' in event) ? event.which : event.keyCode;
   switch(chCode){
-    case 119:
+    case 87:
       console.log("w pressed");
       break;
-    case 97:
+    case 65:
       console.log("a pressed");
       break;
-    case 115:
+    case 83:
       console.log("s pressed");
       break;
-    case 100:
+    case 68:
       console.log("d pressed");
       break;
     case 32:
       console.log("Space pressed");
       break;
-    case 113:
+    case 81:
       console.log("q pressed");
       break;
-    case 101:
+    case 69:
       console.log("e pressed");
       break;
     default:
@@ -94,26 +103,26 @@ function onKeyDownEvent(event){
 function onKeyUpEvent(event){
   var chCode = ('which' in event) ? event.which : event.keyCode;
   switch(chCode){
-    case 119:
+    case 87:
       console.log("w released");
       break;
-    case 97:
+    case 65:
       console.log("a released");
       break;
-    case 115:
+    case 83:
       console.log("s released");
       break;
-    case 100:
+    case 68:
       console.log("d released");
       break;
     case 32:
       console.log("Space released");
       break;
-    case 113:
+    case 81:
       console.log("q released");
       break;
-    case 101:
-      console.log("e");
+    case 69:
+      console.log("e released");
       break;
     default:
       console.log("Unhandled Key: " + chCode);
