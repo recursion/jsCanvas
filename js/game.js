@@ -53,49 +53,119 @@ Mob.fillStyle = 'rgba(0, 0, 200, 0.5)';
 Mob.draw = function(canvasContext){
   canvasContext.fillStyle = this.fillStyle;
   canvasContext.fillRect(this.pos.x, this.pos.y, this.width, this.height);
+  //console.log(this.pos.x + this.width, this.pos.y + this.height);
 }
 // Push that text mob object onto our stack of mobs.
 Game.mobs.push(Mob);
 
+// asci keycodes
+// a = 
+// For smoother input it makes sense to capture keydown and keyup events
+// and set movement accordingly.
+function onKeyDownEvent(event){
+  var chCode = ('which' in event) ? event.which : event.keyCode;
+  switch(chCode){
+    case 119:
+      console.log("w pressed");
+      break;
+    case 97:
+      console.log("a pressed");
+      break;
+    case 115:
+      console.log("s pressed");
+      break;
+    case 100:
+      console.log("d pressed");
+      break;
+    case 32:
+      console.log("Space pressed");
+      break;
+    case 113:
+      console.log("q pressed");
+      break;
+    case 101:
+      console.log("e pressed");
+      break;
+    default:
+      console.log("Unhandled Key: " + chCode);
+  }
 
+}
+function onKeyUpEvent(event){
+  var chCode = ('which' in event) ? event.which : event.keyCode;
+  switch(chCode){
+    case 119:
+      console.log("w released");
+      break;
+    case 97:
+      console.log("a released");
+      break;
+    case 115:
+      console.log("s released");
+      break;
+    case 100:
+      console.log("d released");
+      break;
+    case 32:
+      console.log("Space released");
+      break;
+    case 113:
+      console.log("q released");
+      break;
+    case 101:
+      console.log("e");
+      break;
+    default:
+      console.log("Unhandled Key: " + chCode);
+  }
 
+}
+/*
 ////////////////////////////////////
 // Keyboard event handler
 function onKeyPressEvent(event){
+  console.log("charCode: " + event.charCode + "\nkeyCode: " + event.keyCode);
    var chCode = ('charCode' in event) ? event.charCode : event.keyCode;
-   /*
-    * w = 119
-    * a = 97
-    * s = 115
-    * d = 100
-    * space = 32
-    * q = 113 
-    * e = 101
-    */
-
+   // * w = 119
+   // * a = 97
+   // * s = 115
+   // * d = 100
+   // * space = 32
+   // * q = 113 
+   // * e = 101
+  
+  var step=9;
   switch(chCode){
     case 119:
       console.log("w");
-      if(Game.mobs[0].pos.y > 1){
-        Game.mobs[0].pos.y--;
+      if(Game.mobs[0].pos.y - step <= 0){
+        Game.mobs[0].pos.y = 0;
+      } else {
+        Game.mobs[0].pos.y -= step;
       }
       break;
     case 97:
       console.log("a");
-      if(Game.mobs[0].pos.x > 1){
-        Game.mobs[0].pos.x--;
+      if(Game.mobs[0].pos.x - step <= 0){
+        Game.mobs[0].pos.x = 0;
+      } else {
+        Game.mobs[0].pos.x -= step;
       }
       break;
     case 115:
       console.log("s");
-      if(Game.mobs[0].pos.y < Game.canvas.height-1){
-        Game.mobs[0].pos.y++;
+      if(Game.mobs[0].pos.y + Game.mobs[0].height + step >= Game.canvas.height){
+        Game.mobs[0].pos.y = Game.canvas.height - Game.mobs[0].height;
+      } else {
+        Game.mobs[0].pos.y += step;
       }
       break;
     case 100:
       console.log("d");
-      if(Game.mobs[0].pos.x < Game.canvas.width-1){
-        Game.mobs[0].pos.x++;
+      if(Game.mobs[0].pos.x + Game.mobs[0].width + step >= Game.canvas.width){
+        Game.mobs[0].pos.x = Game.canvas.width - Game.mobs[0].width;
+      } else {
+        Game.mobs[0].pos.x += step;
       }
       break;
     case 32:
@@ -115,7 +185,7 @@ function onKeyPressEvent(event){
   }
 
 }
-
+*/
 // Attempt to get the game canvas
 Game.canvas = document.getElementById('game');
 if(Game.canvas.getContext){
