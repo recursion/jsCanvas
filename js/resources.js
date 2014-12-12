@@ -23,22 +23,34 @@ function Mob(name, xCoord, yCoord, width, height){
   this.velY = 0;
 
   // Set up some local variables
-  var updateCount = 0;
-  var drawCount = 0;
+  
 }
 
 Mob.prototype = {
   constructor: Mob,
-  update: function(){
-    //console.log('Updating ' + this.name);
-    this.updateCount++;
-    this.loc.x += this.velX;
-    this.loc.y += this.velY;
+  update: function(canvas){
+    // Edge Detection
+
+    // Check X coordinate.
+    if(this.loc.x + this.width + this.velX >= canvas.width){
+      this.loc.x = canvas.width - this.width;
+    } else if(this.loc.x + this.velX <= 0){
+      this.loc.x = 0;
+    } else {
+      this.loc.x += this.velX;
+    }
+    // Check Y coordinate.
+    if(this.loc.y + this.height + this.velY >= canvas.height){
+      this.loc.y = canvas.height - this.height;
+    } else if(this.loc.y + this.velY <= 0){
+      this.loc.y = 0;
+    } else {
+      this.loc.y += this.velY;
+    }
   },
   draw: function(ctx){
     //console.log('Drawing ' + this.name);
     ctx.fillStyle = "#00FFF0";
     ctx.fillRect(this.loc.x,this.loc.y, this.width, this.height);
-    this.drawCount++;
   },
 };
