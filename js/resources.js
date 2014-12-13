@@ -26,10 +26,25 @@ function Mob(name, xCoord, yCoord, width, height){
   
 }
 
+/////////////////////////////////////////////////////////////////////
+//        We've now come to the part in the show where
+//        we need to make a decision about how to handle the
+//        differences between player and mob
+//
+//        Mobs will have some sort of random movement algo that the player doesnt use
+//        so we need to decide how to build that out.
+//
+/////////////////////////////////////////////////////////////////////
 Mob.prototype = {
   constructor: Mob,
   update: function(canvas){
+
+    ///////////////////////////////////////////////////////////////////
     // Edge Detection
+    // Currently this just stops the object from going off the screen
+    // but we may want to implement screen wrapping 
+    // or some sort of map the player traverses here later.
+    ///////////////////////////////////////////////////////////////////
 
     // Check X coordinate.
     if(this.loc.x + this.width + this.velX >= canvas.width){
